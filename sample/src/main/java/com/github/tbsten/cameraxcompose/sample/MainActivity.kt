@@ -1,4 +1,4 @@
-package com.github.tbsten.cameraxcompose
+package com.github.tbsten.cameraxcompose.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.github.tbsten.cameraxcompose.ui.theme.CameraxcomposeTheme
+import com.github.tbsten.cameraxcompose.sample.ui.theme.CameraxcomposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

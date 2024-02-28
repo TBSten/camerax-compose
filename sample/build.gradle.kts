@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.tbsten.cameraxcompose"
+    namespace = "com.github.tbsten.cameraxcompose.sample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.github.tbsten.cameraxcompose"
+        applicationId = "com.github.tbsten.cameraxcompose.sample"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

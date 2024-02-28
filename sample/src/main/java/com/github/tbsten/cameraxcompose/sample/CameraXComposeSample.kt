@@ -1,4 +1,4 @@
-package com.github.tbsten.cameraxcompose
+package com.github.tbsten.cameraxcompose.sample
 
 import android.content.ContentValues
 import android.content.Context
@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.github.tbsten.cameraxcompose.CameraPreview
 import com.github.tbsten.cameraxcompose.usecasehelper.imageAnalysisUseCase
 import com.github.tbsten.cameraxcompose.usecasehelper.imageCaptureUseCase
 import com.github.tbsten.cameraxcompose.usecasehelper.previewUseCase

@@ -1,4 +1,4 @@
-package com.github.tbsten.cameraxcompose
+package com.github.tbsten.cameraxcompose.sample
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import com.github.tbsten.cameraxcompose.CameraPreview
 import com.github.tbsten.cameraxcompose.usecasehelper.previewUseCase
 import com.github.tbsten.cameraxcompose.usecasehelper.videoCaptureUseCase
 import java.util.concurrent.Executor

@@ -1,4 +1,4 @@
-package com.github.tbsten.cameraxcompose.ui.theme
+package com.github.tbsten.cameraxcompose.sample.ui.theme
 
 import android.app.Activity
 import android.os.Build
