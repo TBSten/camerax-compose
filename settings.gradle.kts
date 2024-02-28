@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "camerax-compose"
 include(":sample")
- 
+include(":camerax-compose")
