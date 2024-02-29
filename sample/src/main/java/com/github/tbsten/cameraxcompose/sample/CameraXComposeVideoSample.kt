@@ -27,7 +27,7 @@ import com.github.tbsten.cameraxcompose.usecasehelper.videoCaptureUseCase
 import java.util.concurrent.Executor
 
 @Composable
-fun CameraXComposeVideoSample() {
+internal fun CameraXComposeVideoSample() {
     var videoCapture by remember { mutableStateOf<VideoCapture<Recorder>?>(null) }
 
     Box(modifier = Modifier.fillMaxSize()) {
