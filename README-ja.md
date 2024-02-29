@@ -1,7 +1,6 @@
 # CameraX-Compose
 
-[![Release](https://jitpack.io/v/User/Repo.svg)]
-(https://jitpack.io/#User/Repo)
+[![Release](https://jitpack.io/v/tbsten/camerax-compose.svg)](https://jitpack.io/#tbsten/camerax-compose)
 
 `CameraX-Compose` はComposeでCameraXをシンプル・簡単に利用するためのライブラリです。
 
