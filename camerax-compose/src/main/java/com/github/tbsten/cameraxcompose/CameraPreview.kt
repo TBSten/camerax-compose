@@ -7,14 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.LifecycleOwner
 
 @Composable
 fun CameraPreview(
     onBind: OnBindScope.() -> Unit,
     onInitPreviewView: PreviewView.() -> Unit = {},
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
 
     AndroidView(
         factory = {
