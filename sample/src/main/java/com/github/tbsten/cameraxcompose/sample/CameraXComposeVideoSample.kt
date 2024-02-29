@@ -56,7 +56,6 @@ fun CameraXComposeVideoSample() {
             RecordingButton(
                 videoCapture = videoCapture,
             )
-
         }
     }
 }
@@ -74,22 +73,21 @@ private fun RecordingButton(
     Button(
         onClick = {
             videoCapture.let { videoCapture ->
-                recording = if (recording == null) {
-                    val executor = ContextCompat.getMainExecutor(context)
-                    startVideoCapture(context, executor, videoCapture)
-                } else {
-                    recording!!.stop()
-                    null
-                }
+                recording =
+                    if (recording == null) {
+                        val executor = ContextCompat.getMainExecutor(context)
+                        startVideoCapture(context, executor, videoCapture)
+                    } else {
+                        recording!!.stop()
+                        null
+                    }
             }
         },
         modifier = modifier,
     ) {
         Text(if (recording == null) "start" else "stop")
     }
-
 }
-
 
 @SuppressLint("MissingPermission") // TODO Check Permission
 fun startVideoCapture(
@@ -97,19 +95,20 @@ fun startVideoCapture(
     executor: Executor,
     videoCapture: VideoCapture<Recorder>,
 ): Recording {
-    val mediaStoreOutput = MediaStoreOutputOptions.Builder(
-        context.contentResolver,
-        MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-    )
-        .setContentValues(
-            ContentValues().apply {
-                put(
-                    MediaStore.Video.Media.DISPLAY_NAME,
-                    "CameraX-Recording-${System.currentTimeMillis()}.mp4"
-                )
-            }
+    val mediaStoreOutput =
+        MediaStoreOutputOptions.Builder(
+            context.contentResolver,
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
         )
-        .build()
+            .setContentValues(
+                ContentValues().apply {
+                    put(
+                        MediaStore.Video.Media.DISPLAY_NAME,
+                        "CameraX-Recording-${System.currentTimeMillis()}.mp4",
+                    )
+                },
+            )
+            .build()
 
     return videoCapture.output
         .prepareRecording(context, mediaStoreOutput)
