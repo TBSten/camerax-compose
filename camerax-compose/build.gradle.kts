@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
 
     `maven-publish`
+    alias(libs.plugins.ktlint)
 }
 
 android {
