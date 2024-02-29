@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
 
     `maven-publish`
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -22,7 +23,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -63,6 +64,7 @@ publishing {
 }
 
 dependencies {
+    lintChecks(libs.compose.lint.checks)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -79,5 +81,4 @@ dependencies {
     implementation(libs.camerax.lifecycle)
     implementation(libs.camerax.video)
     implementation(libs.camerax.view)
-
 }

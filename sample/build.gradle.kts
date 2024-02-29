@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -26,7 +28,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -51,6 +53,7 @@ android {
 }
 
 dependencies {
+    lintChecks(libs.compose.lint.checks)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

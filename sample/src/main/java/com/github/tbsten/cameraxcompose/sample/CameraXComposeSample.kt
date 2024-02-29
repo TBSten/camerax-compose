@@ -38,7 +38,6 @@ internal fun CameraXComposeSample() {
     val context = LocalContext.current
 
     Box(Modifier.fillMaxSize()) {
-
         CameraPreview(
             onBind = {
                 val executor = ContextCompat.getMainExecutor(context)
@@ -63,13 +62,13 @@ internal fun CameraXComposeSample() {
                     saveImage(scope, context, imageCapture)
                 }
             },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 20.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 20.dp),
         ) {
             Text("save")
         }
-
     }
 }
 
@@ -80,24 +79,25 @@ fun saveImage(
 ) {
     scope.launch {
         val executor = ContextCompat.getMainExecutor(context)
-        val options = ImageCapture.OutputFileOptions
-            .Builder(
-                context.contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                ContentValues().apply {
-                    put(MediaStore.MediaColumns.DISPLAY_NAME, "${System.currentTimeMillis()}")
-                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                        val appName = context.resources.getString(R.string.app_name)
-                        put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/${appName}")
-                    }
-                },
-            )
-            .build()
+        val options =
+            ImageCapture.OutputFileOptions
+                .Builder(
+                    context.contentResolver,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    ContentValues().apply {
+                        put(MediaStore.MediaColumns.DISPLAY_NAME, "${System.currentTimeMillis()}")
+                        put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                            val appName = context.resources.getString(R.string.app_name)
+                            put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/$appName")
+                        }
+                    },
+                )
+                .build()
         val image = imageCapture.takePicture(options, executor)
 
         context.startActivity(
-            Intent(Intent.ACTION_VIEW, image.savedUri)
+            Intent(Intent.ACTION_VIEW, image.savedUri),
         )
     }
 }
