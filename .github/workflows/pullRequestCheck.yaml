@@ -44,7 +44,7 @@ jobs:
             | Release | ${{ steps.build-release.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
 
             [log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }})
-          delete: true
+          recreate: true
       - name: Error Handling
         if: ${{ steps.build-debug.outcome == 'failure' || steps.build-release.outcome == 'failure' }}
         run: exit 1
