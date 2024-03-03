@@ -5,6 +5,10 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 
+/**
+ * [CameraPreview]のonBindコールバックのレシーバとして渡される関数。
+ * cameraProviderやpreviewViewなどをonBindコールバックで参照できるようにします。
+ */
 data class OnBindScope(
     val cameraProvider: ProcessCameraProvider,
     val previewView: PreviewView,

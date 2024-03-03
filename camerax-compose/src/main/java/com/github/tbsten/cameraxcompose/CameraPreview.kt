@@ -10,6 +10,28 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 
+/**
+ * カメラのPreviewを表示するための **Composable** 関数。
+ * プレビューの表示にはonBindコールバック内でPreviewユースケースをbindする必要があります。
+ *
+ *
+ * **使用例**
+ * ```kotlin
+ * CameraPreview(
+ *   onBind = {
+ *     val preview = previewUseCase()
+ *     cameraProvider.bindToLifecycle(
+ *       lifecycleOwner,
+ *       CameraSelector.DEFAULT_BACK_CAMERA,
+ *       preview,
+ *     )
+ *   },
+ * )
+ * ```
+ *
+ * @param onBind UseCaseを用意してcameraProvider.bindToLifecycleを呼び出してください。レシーバとしてOnBindScopeを受け取るため、previewViewやcameraProviderなどにアクセスできます。
+ *
+ */
 @Composable
 fun CameraPreview(
     onBind: OnBindScope.() -> Unit,
