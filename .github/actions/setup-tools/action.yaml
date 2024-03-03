@@ -12,7 +12,7 @@ inputs:
   java-version:
     description: java-version arguments of `actions/setup-java@v4` .
     required: false
-    default: 'temurin'
+    default: '17'
 
   gradle:
     description: setup gradle by `gradle/actions/setup-gradle@v3`
