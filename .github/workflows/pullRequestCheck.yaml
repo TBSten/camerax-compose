@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup-tools
         with:
-          checkout: true
           java: true
           gradle: true
       # build check
@@ -51,10 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup-tools
         with:
-          checkout: true
           java: true
           gradle: true
           reviewdog: true
@@ -77,10 +79,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup-tools
         with:
-          checkout: true
           java: true
           gradle: true
           reviewdog: true
@@ -103,10 +106,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup-tools
         with:
-          checkout: true
           java: true
           gradle: true
       # check generate
@@ -136,6 +140,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup-tools
         with:
