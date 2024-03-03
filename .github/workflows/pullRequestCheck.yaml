@@ -142,7 +142,7 @@ jobs:
         if: ${{ steps.check-documents.outcome == 'failure' }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: check-sample-app-assemble
+          header: update-document
           message: |+
             ### ❌ ドキュメントを更新する必要があります。
 
