@@ -7,7 +7,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  checkSampleAppAssemble:
+  check-sample-app-assemble:
     runs-on: ubuntu-latest
     steps:
       # setup
