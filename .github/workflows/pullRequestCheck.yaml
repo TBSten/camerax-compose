@@ -1,0 +1,105 @@
+on: [ pull_request ]
+
+env:
+  GRADLE_VERSION: 8.2
+
+permissions:
+  pull-requests: write
+
+jobs:
+  checkSampleAppAssemble:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+      # build check
+      - name: Build Sample App Debug Apk
+        id: build-debug
+        run: ./gradlew assembleDebug
+        continue-on-error: true
+      - name: Build Sample App Release Apk
+        id: build-release
+        run: ./gradlew assembleRelease
+        continue-on-error: true
+      # report
+      - name: Report Build
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: check-sample-app-assemble
+          message: |+
+            ### Sample App Build Check
+
+            | Variant | Result |
+            | --- | --- |
+            | Debug | ${{ steps.build-debug.outcome == 'failure' && ':white_check_mark: Success' || ':x: Failure' }} |
+            | Release | ${{ steps.build-release.outcome == 'failure' && ':white_check_mark: Success' || ':x: Failure' }} |
+
+            [log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }})
+          hide_and_recreate: true
+          hide_classify: "OUTDATED"
+      - name: Error Handling
+        if: ${{ steps.build-debug.outcome == 'failure' || steps.build-release.outcome == 'failure' }}
+        run: exit 1
+
+  lint-android-lint:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+      - name: Setup reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      # lint check
+      - name: Android Lint
+        id: android-lint
+        run: ./gradlew lintRelease
+        continue-on-error: true
+      # report
+      - name: Comment PR by reviewdog
+        run: |
+          find ./*/build/reports/android-lint/lintResults.sarif \
+            -type f \
+            -exec sh -c "cat {} | reviewdog -f=sarif -diff='git diff FETCH_HEAD' -reporter=github-pr-review" \;
+      - name: Lint Error Handling
+        if: ${{ steps.android-lint.outcome == 'failure' }}
+        run: exit 1
+
+  lint-ktlint:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+      - name: Setup reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      # lint check
+      - name: Ktlint
+        id: ktlint
+        run: ./gradlew ktlintCheck
+        continue-on-error: true
+      # report
+      - name: Comment PR by reviewdog
+        run: |
+          find ./*/build/reports/ktlint/*/*.xml \
+            -type f \
+            -exec sh -c "cat {} | reviewdog -f=checkstyle -diff='git diff FETCH_HEAD' -reporter=github-pr-review" \;
+      - name: Lint Error Handling
+        if: ${{ steps.ktlint.outcome == 'failure' }}
+        run: exit 1
