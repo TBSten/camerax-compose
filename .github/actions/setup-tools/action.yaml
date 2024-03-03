@@ -1,0 +1,59 @@
+name: Setup Tools
+description: setup-tools
+inputs:
+  checkout:
+    description: checkout by `actions/checkout@v4`
+    required: false
+    default: false
+
+  java:
+    description: setup java by `actions/setup-java@v4`
+    required: false
+    default: false
+  java-distribution:
+    description: distribution arguments of `actions/setup-java@v4` .
+    required: false
+    default: 'temurin'
+  java-version:
+    description: java-version arguments of `actions/setup-java@v4` .
+    required: false
+    default: 'temurin'
+
+  gradle:
+    description: setup gradle by `gradle/actions/setup-gradle@v3`
+    required: false
+    default: false
+  gradle-version:
+    description: gradle-version arguments of `gradle/actions/setup-gradle@v3` .
+    required: false
+    default: "8.2"
+
+  reviewdog:
+    description: checkout by `reviewdog/action-setup@v1`
+    required: false
+    default: false
+  reviewdog-version:
+    description: reviewdog_version arguments of `reviewdog/action-setup@v1`
+    required: false
+    default: latest
+
+runs:
+  steps:
+    - name: Checkout sources
+      if: ${{ inputs.checkout }}
+      uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      if: ${{ inputs.java }}
+      with:
+        distribution: ${{ inputs.java.distribution }}
+        java-version: ${{ inputs.java.version }}
+    - name: Setup Gradle
+      if: ${{ inputs.gradle }}
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: ${{ inputs.gradle-version }}
+    - name: Setup reviewdog
+      if: ${{ inputs.reviewdog }}
+      uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: ${{ inputs.reviewdog-version }}
