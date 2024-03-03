@@ -68,6 +68,7 @@ ktlint {
         reporter(ReporterType.HTML)
         reporter(ReporterType.CHECKSTYLE)
     }
+    ignoreFailures = false
 }
 
 publishing {
