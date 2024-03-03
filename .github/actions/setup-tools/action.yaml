@@ -38,8 +38,8 @@ runs:
     - uses: actions/setup-java@v4
       if: ${{ inputs.java }}
       with:
-        distribution: ${{ inputs.java.distribution }}
-        java-version: ${{ inputs.java.version }}
+        distribution: ${{ inputs.java-distribution }}
+        java-version: ${{ inputs.java-version }}
     - name: Setup Gradle
       if: ${{ inputs.gradle }}
       uses: gradle/actions/setup-gradle@v3
