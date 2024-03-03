@@ -11,6 +11,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 
 /**
+ * テスト
+ *
  * カメラのPreviewを表示するための **Composable** 関数。
  * プレビューの表示にはonBindコールバック内でPreviewユースケースをbindする必要があります。
  *
