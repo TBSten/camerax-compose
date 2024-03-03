@@ -17,6 +17,7 @@ fun CameraPreview(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     modifier: Modifier = Modifier,
 ) {
+    xxx
     val context = LocalContext.current
     AndroidView(
         modifier = modifier,
