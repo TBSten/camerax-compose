@@ -48,3 +48,5 @@ fun CameraPreview(
         },
     )
 }
+
+fun INVALID_NAME_FUNC() {}
