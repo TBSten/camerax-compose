@@ -13,9 +13,9 @@ import androidx.lifecycle.LifecycleOwner
 @Composable
 fun CameraPreview(
     onBind: OnBindScope.() -> Unit,
-    modifier: Modifier = Modifier,
     onInitPreviewView: PreviewView.() -> Unit = {},
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     AndroidView(
