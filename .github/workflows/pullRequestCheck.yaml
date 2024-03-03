@@ -36,8 +36,8 @@ jobs:
 
             | Variant | Result |
             | --- | --- |
-            | Debug | ${{ steps.build-debug.outcome == 'failure' && ':white_check_mark: Success' || ':x: Failure' }} |
-            | Release | ${{ steps.build-release.outcome == 'failure' && ':white_check_mark: Success' || ':x: Failure' }} |
+            | Debug | ${{ steps.build-debug.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
+            | Release | ${{ steps.build-release.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
 
             [log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }})
           hide_and_recreate: true
