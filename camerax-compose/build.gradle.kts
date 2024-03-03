@@ -5,6 +5,7 @@ plugins {
 
     `maven-publish`
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.dokka)
 }
 
 android {
@@ -61,6 +62,10 @@ publishing {
             }
         }
     }
+}
+
+tasks.dokkaHtml.configure {
+    outputDirectory.set(file("${rootProject.file(".").absolutePath}/docs-dokka")) // docsディレクトリにドキュメントを出力する
 }
 
 dependencies {
