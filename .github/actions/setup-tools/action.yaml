@@ -4,7 +4,7 @@ inputs:
   java:
     description: setup java by `actions/setup-java@v4`
     required: false
-    default: false
+    default: "false"
   java-distribution:
     description: distribution arguments of `actions/setup-java@v4` .
     required: false
@@ -17,7 +17,7 @@ inputs:
   gradle:
     description: setup gradle by `gradle/actions/setup-gradle@v3`
     required: false
-    default: false
+    default: "false"
   gradle-version:
     description: gradle-version arguments of `gradle/actions/setup-gradle@v3` .
     required: false
@@ -26,7 +26,7 @@ inputs:
   reviewdog:
     description: checkout by `reviewdog/action-setup@v1`
     required: false
-    default: false
+    default: "false"
   reviewdog-version:
     description: reviewdog_version arguments of `reviewdog/action-setup@v1`
     required: false
@@ -36,17 +36,17 @@ runs:
   using: composite
   steps:
     - uses: actions/setup-java@v4
-      if: ${{ inputs.java }}
+      if: ${{ inputs.java == 'true' }}
       with:
         distribution: ${{ inputs.java-distribution }}
         java-version: ${{ inputs.java-version }}
     - name: Setup Gradle
-      if: ${{ inputs.gradle }}
+      if: ${{ inputs.gradle == 'true' }}
       uses: gradle/actions/setup-gradle@v3
       with:
         gradle-version: ${{ inputs.gradle-version }}
     - name: Setup reviewdog
-      if: ${{ inputs.reviewdog }}
+      if: ${{ inputs.reviewdog == 'true' }}
       uses: reviewdog/action-setup@v1
       with:
         reviewdog_version: ${{ inputs.reviewdog-version }}
