@@ -145,7 +145,6 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup-tools
         with:
-          checkout: true
           java: true
           gradle: true
       - name: Publish to local
