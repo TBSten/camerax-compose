@@ -24,7 +24,7 @@ inputs:
     default: "8.2"
 
   reviewdog:
-    description: checkout by `reviewdog/action-setup@v1`
+    description: setup reviewdog by `reviewdog/action-setup@v1`
     required: false
     default: "false"
   reviewdog-version:
@@ -33,7 +33,7 @@ inputs:
     default: latest
 
   node:
-    description: setup by `reviewdog/action-setup@v1`
+    description: setup Nodejs by `actions/setup-node@v4`
     required: false
     default: "false"
   node-version:
@@ -77,8 +77,11 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
-    - name: Setup Git
+    - name: Setup Git Email
       if: ${{ inputs.git == 'true' }}
-      run:
-        git config user.email ${{ inputs.git-email }}
-        git config user.name ${{ inputs.git-username }}
+      shell: bash
+      run: git config user.email "${{ inputs.git-email }}"
+    - name: Setup Git Username
+      if: ${{ inputs.git == 'true' }}
+      shell: bash
+      run: git config user.name "${{ inputs.git-username }}"
