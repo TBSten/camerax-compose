@@ -79,6 +79,7 @@ runs:
         node-version: ${{ inputs.node-version }}
     - name: Setup Git
       if: ${{ inputs.git == 'true' }}
+      shell: bash
       run:
         git config user.email ${{ inputs.git-email }}
         git config user.name ${{ inputs.git-username }}
