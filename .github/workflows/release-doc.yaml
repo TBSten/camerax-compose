@@ -3,7 +3,7 @@ name: Release documents
 on:
   release:
     types: [ prereleased, released ]
-  workflow-dispatch:
+  workflow_dispatch:
 
 jobs:
   deploy-documents:
