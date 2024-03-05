@@ -1,0 +1,87 @@
+name: Setup Tools
+description: setup-tools
+inputs:
+  java:
+    description: setup java by `actions/setup-java@v4`
+    required: false
+    default: "false"
+  java-distribution:
+    description: distribution arguments of `actions/setup-java@v4` .
+    required: false
+    default: 'temurin'
+  java-version:
+    description: java-version arguments of `actions/setup-java@v4` .
+    required: false
+    default: '17'
+
+  gradle:
+    description: setup gradle by `gradle/actions/setup-gradle@v3`
+    required: false
+    default: "false"
+  gradle-version:
+    description: gradle-version arguments of `gradle/actions/setup-gradle@v3` .
+    required: false
+    default: "8.2"
+
+  reviewdog:
+    description: setup reviewdog by `reviewdog/action-setup@v1`
+    required: false
+    default: "false"
+  reviewdog-version:
+    description: reviewdog_version arguments of `reviewdog/action-setup@v1`
+    required: false
+    default: latest
+
+  node:
+    description: setup Nodejs by `actions/setup-node@v4`
+    required: false
+    default: "false"
+  node-version:
+    description: node-version arguments by `actions/setup-node@v4`
+    required: false
+    default: "20"
+
+  git:
+    description: configure git user info
+    required: false
+    default: "false"
+  git-email:
+    description: git user email
+    required: false
+    default: workflow@github.com
+  git-username:
+    description: git user name
+    required: false
+    default: Workflow
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@v4
+      if: ${{ inputs.java == 'true' }}
+      with:
+        distribution: ${{ inputs.java-distribution }}
+        java-version: ${{ inputs.java-version }}
+    - name: Setup Gradle
+      if: ${{ inputs.gradle == 'true' }}
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: ${{ inputs.gradle-version }}
+    - name: Setup reviewdog
+      if: ${{ inputs.reviewdog == 'true' }}
+      uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: ${{ inputs.reviewdog-version }}
+    - name: Setup Nodejs
+      if: ${{ inputs.node == 'true' }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Setup Git Email
+      if: ${{ inputs.git == 'true' }}
+      shell: bash
+      run: git config user.email "${{ inputs.git-email }}"
+    - name: Setup Git Username
+      if: ${{ inputs.git == 'true' }}
+      shell: bash
+      run: git config user.name "${{ inputs.git-username }}"

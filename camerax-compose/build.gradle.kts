@@ -1,3 +1,5 @@
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -42,12 +44,32 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 
+    lint {
+        sarifOutput = File(project.buildDir, "reports/android-lint/lintResults.sarif")
+        textOutput = File(project.buildDir, "reports/android-lint/lintResults.txt")
+        htmlOutput = File(project.buildDir, "reports/android-lint/lintResults.html")
+        xmlReport = false
+    }
+
     publishing {
         singleVariant("release") {
             withJavadocJar()
             withSourcesJar()
         }
     }
+}
+
+ktlint {
+    android = true
+    outputToConsole = true
+    verbose = true
+    debug = true
+    ignoreFailures = true
+    reporters {
+        reporter(ReporterType.HTML)
+        reporter(ReporterType.CHECKSTYLE)
+    }
+    ignoreFailures = false
 }
 
 publishing {

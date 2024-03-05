@@ -1,0 +1,151 @@
+name: Pull Request Check
+
+on: [ pull_request ]
+
+env:
+  GRADLE_VERSION: 8.2
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check-sample-app-assemble:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-tools
+        with:
+          java: true
+          gradle: true
+      # build check
+      - name: Build Sample App Debug Apk
+        id: build-debug
+        run: ./gradlew assembleDebug
+        continue-on-error: true
+      - name: Build Sample App Release Apk
+        id: build-release
+        run: ./gradlew assembleRelease
+        continue-on-error: true
+      # report
+      - name: Report Build
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: check-sample-app-assemble
+          message: |+
+            ### Sample App Build Check
+
+            | Variant | Result |
+            | --- | --- |
+            | Debug | ${{ steps.build-debug.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
+            | Release | ${{ steps.build-release.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
+
+            [log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          recreate: true
+      - name: Error Handling
+        if: ${{ steps.build-debug.outcome == 'failure' || steps.build-release.outcome == 'failure' }}
+        run: exit 1
+
+  lint-android-lint:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-tools
+        with:
+          java: true
+          gradle: true
+          reviewdog: true
+      # lint check
+      - name: Android Lint
+        id: android-lint
+        run: ./gradlew lintRelease
+        continue-on-error: true
+      # report
+      - name: Comment PR by reviewdog
+        run: |
+          find ./*/build/reports/android-lint/lintResults.sarif \
+            -type f \
+            -exec sh -c "cat {} | reviewdog -f=sarif -diff='git diff FETCH_HEAD' -reporter=github-pr-review" \;
+      - name: Lint Error Handling
+        if: ${{ steps.android-lint.outcome == 'failure' }}
+        run: exit 1
+
+  lint-ktlint:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-tools
+        with:
+          java: true
+          gradle: true
+          reviewdog: true
+      # lint check
+      - name: Ktlint
+        id: ktlint
+        run: ./gradlew ktlintCheck
+        continue-on-error: true
+      # report
+      - name: Comment PR by reviewdog
+        run: |
+          find ./*/build/reports/ktlint/*/*.xml \
+            -type f \
+            -exec sh -c "cat {} | reviewdog -f=checkstyle -diff='git diff FETCH_HEAD' -reporter=github-pr-review" \;
+      - name: Lint Error Handling
+        if: ${{ steps.ktlint.outcome == 'failure' }}
+        run: exit 1
+
+  dokka:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-tools
+        with:
+          java: true
+          gradle: true
+      # check generate
+      - name: generate dokka documents
+        run: ./gradlew dokkaHtml
+      # diffがあった場合エラーで終了
+      - name: check has new documents
+        id: check-documents
+        run: git diff --quiet || exit 1
+        continue-on-error: true
+      # error handling
+      - name: Report Error
+        if: ${{ steps.check-documents.outcome == 'failure' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: update-document
+          message: |+
+            ### ❌ ドキュメントを更新する必要があります。
+
+            `./gradlew dokkaHtml` を実行してドキュメントを更新してください。
+          recreate: true
+      - name: Error Handling
+        if: ${{ steps.check-documents.outcome == 'failure' }}
+        run: exit 1
+
+  check-publish:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-tools
+        with:
+          java: true
+          gradle: true
+      - name: Publish to local
+        run: ./gradlew publishReleaseToMavenLocal
