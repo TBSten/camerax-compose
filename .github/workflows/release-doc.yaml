@@ -1,0 +1,32 @@
+name: Release documents
+
+on:
+  release:
+    types: [ prereleased, released ]
+  workflow-dispatch:
+
+jobs:
+  deploy-documents:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup-tools
+        with:
+          java: true
+          gradle: true
+          node: true
+          git: true
+          git-email: release.documents.workflow@git
+          git-username: Release documents workflow
+      # prepare deploy
+      - name: Get last released version
+        run: echo "version=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+      # deploy
+      - name: Deploy target version
+        run: npm run gh-pages-multi deploy -s docs-dokka -t ${{ env.version }}
+      - name: Deploy latest version
+        if: ${{ github.event.action == 'released' }}
+        run: npm run gh-pages-multi deploy -s docs-dokka -t latest
