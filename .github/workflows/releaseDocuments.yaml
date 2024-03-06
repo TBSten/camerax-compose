@@ -1,14 +1,20 @@
-name: Pull Request Check
+name: Release Documentation
 
 on:
   release:
     types: [created]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Release tag name"
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 jobs:
-  releaseDocuments:
+  release-documents:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -18,5 +24,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs-dokka
-          destination_dir: ${{ github.event.release.tag_name }}
+          destination_dir: ${{ github.event.inputs.tag_name || github.event.release.tag_name }}
           keep_files: true
