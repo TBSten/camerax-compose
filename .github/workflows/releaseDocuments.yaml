@@ -1,0 +1,19 @@
+name: Pull Request Check
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  releaseDocuments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs-dokka
+          destination_dir: ${{ github.event.release.tag_name }}
+          keep_files: true
