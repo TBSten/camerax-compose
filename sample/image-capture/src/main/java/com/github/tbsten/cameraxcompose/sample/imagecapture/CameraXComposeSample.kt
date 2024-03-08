@@ -1,4 +1,4 @@
-package com.github.tbsten.cameraxcompose.sample
+package com.github.tbsten.cameraxcompose.sample.imagecapture
 
 import android.content.ContentValues
 import android.content.Context
