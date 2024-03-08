@@ -2,7 +2,7 @@
 
 [![Release](https://jitpack.io/v/tbsten/camerax-compose.svg)](https://jitpack.io/#tbsten/camerax-compose)
 
-`CameraX-Compose` はComposeでCameraXをシンプル・簡単に利用するためのライブラリです。
+`CameraX-Compose` は Compose で CameraX をシンプル・簡単に利用するためのライブラリです。
 
 ```kotlin
 // このライブラリを使用するためのシンプルな例です。
@@ -22,11 +22,18 @@ CameraPreview(
 )
 ```
 
+## Table of Contents
+
+- [How to install](#how-to-install)
+- [Quick Start](#quick-start)
+- [Other Documents](#other-documents)
+- [Licence](#licence)
+
 ## How to install
 
-プロジェクトレベルのbuild.gradle.ktsに以下を追加します。
+プロジェクトレベルの build.gradle.kts に以下を追加します。
 
-このライブラリは**cameraxの依存関係も必要**な点に注意してください。
+このライブラリは**camerax の依存関係も必要**な点に注意してください。
 
 ### groovy
 
@@ -70,7 +77,7 @@ dependencies {
 
 ## Quick Start
 
-インストールが完了したら、以下のソースコードをComposableに貼り付けます。
+インストールが完了したら、以下のソースコードを Composable に貼り付けます。
 
 ```kotlin
 var imageCapture by remember { mutableStateOf<ImageCapture?>(null) }

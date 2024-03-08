@@ -22,6 +22,13 @@ CameraPreview(
 )
 ```
 
+## Table of Contents
+
+- [How to install](#how-to-install)
+- [Quick Start](#quick-start)
+- [Other Documents](#other-documents)
+- [Licence](#licence)
+
 ## How to install
 
 Add the following to build.gradle.kts at project level.
