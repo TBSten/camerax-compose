@@ -22,14 +22,14 @@ CameraPreview(
 )
 ```
 
-## Table of Contents
+## 目次
 
-- [How to install](#how-to-install)
+- [インストール](#インストール)
 - [Quick Start](#quick-start)
-- [Other Documents](#other-documents)
-- [Licence](#licence)
+- [参考資料](#参考資料)
+- [ライセンス](#ライセンス)
 
-## How to install
+## インストール
 
 プロジェクトレベルの build.gradle.kts に以下を追加します。
 
@@ -137,12 +137,12 @@ scope.launch {
 アプリケーションを起動し、適切なアクセス許可を設定すると、撮影できるようになります。
 写真を撮ることができるはずです。(これは簡単な例であるためパーミッションは設定アプリから設定する必要があります)
 
-## Other Documents
+## 参考資料
 
 - [サンプルプロジェクト](https://github.com/TBSten/nextjs-netlify-suspense-prac/tree/main/samle)
 - [作者の実装ログ](https://zenn.dev/tbsten/scraps/b04d31b4c01c99)
 
-## Licence
+## ライセンス
 
 All code, unless specified otherwise, is licensed under
 the [MIT](https://opensource.org/license/MIT) license.
