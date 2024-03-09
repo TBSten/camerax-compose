@@ -39,7 +39,7 @@ jobs:
       - name: Report Build
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: check-sample-app-assemble
+          header: check-sample-app-assemble-${{ matrix.app-modules }}
           message: |+
             ### Sample App Build Check
 
