@@ -1,6 +1,6 @@
 name: Pull Request Check
 
-on: [ pull_request ]
+on: [pull_request]
 
 env:
   GRADLE_VERSION: 8.2
@@ -11,6 +11,12 @@ permissions:
 jobs:
   check-sample-app-assemble:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app-modules:
+          - ":sample:qr-code"
+          - ":sample:image-capture"
+          - ":sample:video-capture"
     steps:
       # setup
       - name: Checkout sources
@@ -23,11 +29,11 @@ jobs:
       # build check
       - name: Build Sample App Debug Apk
         id: build-debug
-        run: ./gradlew assembleDebug
+        run: ./gradlew ${{ matrix.app-modules }}:assembleDebug
         continue-on-error: true
       - name: Build Sample App Release Apk
         id: build-release
-        run: ./gradlew assembleRelease
+        run: ./gradlew ${{ matrix.app-modules }}:assembleDebug
         continue-on-error: true
       # report
       - name: Report Build
@@ -39,8 +45,8 @@ jobs:
 
             | Variant | Result |
             | --- | --- |
-            | Debug | ${{ steps.build-debug.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
-            | Release | ${{ steps.build-release.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
+            | ${{ matrix.app-modules }} (Debug) | ${{ steps.build-debug.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
+            | ${{ matrix.app-modules }} (Release) | ${{ steps.build-release.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
 
             [log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           recreate: true
