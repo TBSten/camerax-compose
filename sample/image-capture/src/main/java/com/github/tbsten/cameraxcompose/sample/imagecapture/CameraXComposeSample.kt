@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.github.tbsten.cameraxcompose.CameraPreview
-import com.github.tbsten.cameraxcompose.usecasehelper.imageAnalysisUseCase
 import com.github.tbsten.cameraxcompose.usecasehelper.imageCaptureUseCase
 import com.github.tbsten.cameraxcompose.usecasehelper.previewUseCase
 import com.github.tbsten.cameraxcompose.util.takePicture
@@ -40,17 +39,14 @@ internal fun CameraXComposeSample() {
     Box(Modifier.fillMaxSize()) {
         CameraPreview(
             onBind = {
-                val executor = ContextCompat.getMainExecutor(context)
                 // UseCases
                 val preview = previewUseCase()
-                val analysis = imageAnalysisUseCase(executor) {}
                 imageCapture = imageCaptureUseCase()
                 // bind
                 cameraProvider.bindToLifecycle(
                     lifecycleOwner,
                     CameraSelector.DEFAULT_BACK_CAMERA,
                     preview,
-                    analysis,
                     imageCapture,
                 )
             },
