@@ -13,10 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app-modules:
+        app-module:
           - ":sample:qr-code"
           - ":sample:image-capture"
           - ":sample:video-capture"
+        app-variant:
+          - "Debug"
+          - "Release"
     steps:
       # setup
       - name: Checkout sources
@@ -27,31 +30,35 @@ jobs:
           java: true
           gradle: true
       # build check
-      - name: Build Sample App Debug Apk
-        id: build-debug
-        run: ./gradlew ${{ matrix.app-modules }}:assembleDebug
-        continue-on-error: true
-      - name: Build Sample App Release Apk
-        id: build-release
-        run: ./gradlew ${{ matrix.app-modules }}:assembleDebug
+      - name: Build Sample App Apk
+        id: build-apk
+        run: ./gradlew ${{ matrix.app-module }}:assemble${{matrix.app-variant}}
         continue-on-error: true
       # report
-      - name: Report Build
-        uses: marocchino/sticky-pull-request-comment@v2
+      - name: Report to job summary
+        uses: actions/github-script@v6
+        env:
+          BUILD_APK_OUTCOME: ${{ steps.build-apk.outcome }}
+          APP_MODULE: ${{ matrix.app-module }}
+          APP_VARIANT: ${{matrix.app-variant}}
         with:
-          header: check-sample-app-assemble-${{ matrix.app-modules }}
-          message: |+
-            ### Sample App Build Check
-
-            | Variant | Result |
-            | --- | --- |
-            | ${{ matrix.app-modules }} (Debug) | ${{ steps.build-debug.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
-            | ${{ matrix.app-modules }} (Release) | ${{ steps.build-release.outcome == 'failure' && ':x: Failure' || ':white_check_mark: Success' }} |
-
-            [log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          recreate: true
-      - name: Error Handling
-        if: ${{ steps.build-debug.outcome == 'failure' || steps.build-release.outcome == 'failure' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const isSuccess = process.env.BUILD_APK_OUTCOME == "success"
+            await core.summary
+              .addHeading('Sample app build check report')
+              .addRaw(
+                isSuccess
+                  ? ":white_check_mark: Success"
+                  : ":x: Failure"
+              )
+              .addRaw(`app:${process.env.APP_MODULE}`)
+              .addRaw(`variant:${process.env.APP_VARIANT}`)
+              .write()
+      # TODO upload apk to artifact
+      # Error handling
+      - name: Error handling
+        if: ${{ steps.build-apk.outcome == 'failure' }}
         run: exit 1
 
   lint-android-lint:
