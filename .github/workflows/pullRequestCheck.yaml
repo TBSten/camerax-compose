@@ -46,10 +46,10 @@ jobs:
           script: |
             const isSuccess = process.env.BUILD_APK_OUTCOME == "success"
             await core.summary
-              .addHeading('Sample app build check report')
-              .addRaw(`- app:${process.env.APP_MODULE}`)
-              .addRaw(`- variant:${process.env.APP_VARIANT}`)
-              .addRaw(`- ${isSuccess ? ":white_check_mark: Success" : ":x: Failure"}`)
+              .addHeading('Sample app build check report\n')
+              .addRaw(`- app:${process.env.APP_MODULE}\n`)
+              .addRaw(`- variant:${process.env.APP_VARIANT}\n`)
+              .addRaw(`- ${isSuccess ? ":white_check_mark: Success" : ":x: Failure"}\n`)
               .write()
       # TODO upload apk to artifact
       # Error handling
