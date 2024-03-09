@@ -165,13 +165,19 @@ imageCapture?.let { imageCapture ->
 
 [See more](./sample/image-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/imagecapture/)
 
+![image-capture-sample](./sample/image-capture/image-capture-sample.gif)
+
 ### ⭐️ Record and save with the camera
 
 [See more](./sample/video-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/videocapture/)
 
+![video-capture-sample](./sample/video-capture/video-capture-sample.gif)
+
 ### ⭐️ Scan QR codes
 
 [See more](./sample/qr-code/src/main/java/com/github/tbsten/cameraxcompose/sample/qrcode/)
+
+![qr-code-sample](./sample/qr-code/qrcode-sample.gif)
 
 ## Other Documents
 

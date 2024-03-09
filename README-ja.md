@@ -166,13 +166,19 @@ imageCapture?.let { imageCapture ->
 
 [See more](./sample/image-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/imagecapture/)
 
+![image-capture-sample](./sample/image-capture/image-capture-sample.gif)
+
 ### ⭐️ カメラで録画して保存する
 
 [See more](./sample/video-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/videocapture/)
 
+![video-capture-sample](./sample/video-capture/video-capture-sample.gif)
+
 ### ⭐️ QR コードを読み取る
 
 [See more](./sample/qr-code/src/main/java/com/github/tbsten/cameraxcompose/sample/qrcode/)
+
+![qr-code-sample](./sample/qr-code/qrcode-sample.gif)
 
 ## 参考資料
 
