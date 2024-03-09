@@ -47,13 +47,9 @@ jobs:
             const isSuccess = process.env.BUILD_APK_OUTCOME == "success"
             await core.summary
               .addHeading('Sample app build check report')
-              .addRaw(
-                isSuccess
-                  ? ":white_check_mark: Success"
-                  : ":x: Failure"
-              )
-              .addRaw(`app:${process.env.APP_MODULE}`)
-              .addRaw(`variant:${process.env.APP_VARIANT}`)
+              .addRaw(`- app:${process.env.APP_MODULE}`)
+              .addRaw(`- variant:${process.env.APP_VARIANT}`)
+              .addRaw(`- ${isSuccess ? ":white_check_mark: Success" : ":x: Failure"}`)
               .write()
       # TODO upload apk to artifact
       # Error handling
