@@ -27,6 +27,7 @@ CameraPreview(
 - [インストール](#インストール)
 - [Quick Start](#quick-start)
 - [参考資料](#参考資料)
+- [サンプル](#サンプル)
 - [ライセンス](#ライセンス)
 
 ## インストール
@@ -136,6 +137,42 @@ scope.launch {
 
 アプリケーションを起動し、適切なアクセス許可を設定すると、撮影できるようになります。
 写真を撮ることができるはずです。(これは簡単な例であるためパーミッションは設定アプリから設定する必要があります)
+
+## サンプル
+
+### ⭐️ カメラで撮影して保存する
+
+```kotlin
+// プレビューを表示
+CameraPreview(
+    onBind = {
+        // UseCases
+        val preview = previewUseCase()
+        imageCapture = imageCaptureUseCase()
+        cameraProvider.bindToLifecycle(
+            lifecycleOwner,
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            preview,
+            imageCapture,
+        )
+    },
+)
+
+// 画像をキャプチャ
+imageCapture?.let { imageCapture ->
+    saveImage(scope, context, imageCapture)
+}
+```
+
+[See more](./sample/image-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/imagecapture/)
+
+### ⭐️ カメラで録画して保存する
+
+[See more](./sample/video-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/videocapture/)
+
+### ⭐️ QR コードを読み取る
+
+[See more](./sample/qr-code/src/main/java/com/github/tbsten/cameraxcompose/sample/qrcode/)
 
 ## 参考資料
 
