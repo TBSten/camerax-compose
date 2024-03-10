@@ -12,5 +12,9 @@ This library is versioned as follows
 
 ## git operations
 
-- **Rule 1** For each major and minor version, create a version branch (in the format `develop/<major>.<minor>.<patch>`) and have all working branches based on the version branch.
-- **Rule 2** Whenever a version is updated, merge the version branch of that version into the main branch. Also, when merging, tag with the format `v<major>.<minor>.<patch>` and create a github release for each version tag. (With jitpack set up, each release triggers documentation updates, allowing users to access the library.)
+- **Rule 1** For each major and minor version, create a version branch (format is `develop/<major>.<minor>.<patch>`) and have all working branches based on the version branch.
+- **Rule 2** To release the version in question, do the following This will ensure that the latest released version will always be present in HEAD on the main branch.
+  - Merge the version branch into the main branch.
+  - After the merge, tag the main branch merge commit with the format `v<major>.<minor>.<patch>`.
+  - Create a github release.
+    - With jitpack set up, each release triggers documentation updates, allowing users to access the library.
