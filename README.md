@@ -183,6 +183,7 @@ imageCapture?.let { imageCapture ->
 
 - [sample project](https://github.com/TBSten/nextjs-netlify-suspense-prac/tree/main/samle)
 - [Author's implementation log](https://zenn.dev/tbsten/scraps/b04d31b4c01c99)
+- [About contributing](./CONTRIBUTING.md)
 
 ## Licence
 
