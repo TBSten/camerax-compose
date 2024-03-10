@@ -22,6 +22,14 @@ CameraPreview(
 )
 ```
 
+## Table of Contents
+
+- [How to install](#how-to-install)
+- [Quick Start](#quick-start)
+- [Other Documents](#other-documents)
+- [Samples](#samples)
+- [Licence](#licence)
+
 ## How to install
 
 Add the following to build.gradle.kts at project level.
@@ -128,6 +136,48 @@ scope.launch {
 
 After launching the application and setting the appropriate permissions, you should be able to take
 a picture. (This is a simple example; permissions must be set from the Settings app.)
+
+## Samples
+
+### ⭐️ Take a picture with the camera and save it
+
+```kotlin
+// Show preview by CameraPreview Composable
+CameraPreview(
+    onBind = {
+        // UseCases
+        val preview = previewUseCase()
+        imageCapture = imageCaptureUseCase()
+        cameraProvider.bindToLifecycle(
+            lifecycleOwner,
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            preview,
+            imageCapture,
+        )
+    },
+)
+
+// Capture image
+imageCapture?.let { imageCapture ->
+    saveImage(scope, context, imageCapture)
+}
+```
+
+[See more](./sample/image-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/imagecapture/)
+
+![image-capture-sample](./sample/image-capture/image-capture-sample.gif)
+
+### ⭐️ Record and save with the camera
+
+[See more](./sample/video-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/videocapture/)
+
+![video-capture-sample](./sample/video-capture/video-capture-sample.gif)
+
+### ⭐️ Scan QR codes
+
+[See more](./sample/qr-code/src/main/java/com/github/tbsten/cameraxcompose/sample/qrcode/)
+
+![qr-code-sample](./sample/qr-code/qrcode-sample.gif)
 
 ## Other Documents
 

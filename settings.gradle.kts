@@ -14,5 +14,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "camerax-compose"
-include(":sample")
 include(":camerax-compose")
+include(":sample:image-capture")
+include(":sample:video-capture")
+include(":sample:qr-code")

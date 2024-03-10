@@ -2,7 +2,7 @@
 
 [![Release](https://jitpack.io/v/tbsten/camerax-compose.svg)](https://jitpack.io/#tbsten/camerax-compose)
 
-`CameraX-Compose` はComposeでCameraXをシンプル・簡単に利用するためのライブラリです。
+`CameraX-Compose` は Compose で CameraX をシンプル・簡単に利用するためのライブラリです。
 
 ```kotlin
 // このライブラリを使用するためのシンプルな例です。
@@ -22,11 +22,19 @@ CameraPreview(
 )
 ```
 
-## How to install
+## 目次
 
-プロジェクトレベルのbuild.gradle.ktsに以下を追加します。
+- [インストール](#インストール)
+- [Quick Start](#quick-start)
+- [参考資料](#参考資料)
+- [サンプル](#サンプル)
+- [ライセンス](#ライセンス)
 
-このライブラリは**cameraxの依存関係も必要**な点に注意してください。
+## インストール
+
+プロジェクトレベルの build.gradle.kts に以下を追加します。
+
+このライブラリは**camerax の依存関係も必要**な点に注意してください。
 
 ### groovy
 
@@ -70,7 +78,7 @@ dependencies {
 
 ## Quick Start
 
-インストールが完了したら、以下のソースコードをComposableに貼り付けます。
+インストールが完了したら、以下のソースコードを Composable に貼り付けます。
 
 ```kotlin
 var imageCapture by remember { mutableStateOf<ImageCapture?>(null) }
@@ -130,12 +138,54 @@ scope.launch {
 アプリケーションを起動し、適切なアクセス許可を設定すると、撮影できるようになります。
 写真を撮ることができるはずです。(これは簡単な例であるためパーミッションは設定アプリから設定する必要があります)
 
-## Other Documents
+## サンプル
+
+### ⭐️ カメラで撮影して保存する
+
+```kotlin
+// プレビューを表示
+CameraPreview(
+    onBind = {
+        // UseCases
+        val preview = previewUseCase()
+        imageCapture = imageCaptureUseCase()
+        cameraProvider.bindToLifecycle(
+            lifecycleOwner,
+            CameraSelector.DEFAULT_BACK_CAMERA,
+            preview,
+            imageCapture,
+        )
+    },
+)
+
+// 画像をキャプチャ
+imageCapture?.let { imageCapture ->
+    saveImage(scope, context, imageCapture)
+}
+```
+
+[See more](./sample/image-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/imagecapture/)
+
+![image-capture-sample](./sample/image-capture/image-capture-sample.gif)
+
+### ⭐️ カメラで録画して保存する
+
+[See more](./sample/video-capture/src/main/java/com/github/tbsten/cameraxcompose/sample/videocapture/)
+
+![video-capture-sample](./sample/video-capture/video-capture-sample.gif)
+
+### ⭐️ QR コードを読み取る
+
+[See more](./sample/qr-code/src/main/java/com/github/tbsten/cameraxcompose/sample/qrcode/)
+
+![qr-code-sample](./sample/qr-code/qrcode-sample.gif)
+
+## 参考資料
 
 - [サンプルプロジェクト](https://github.com/TBSten/nextjs-netlify-suspense-prac/tree/main/samle)
 - [作者の実装ログ](https://zenn.dev/tbsten/scraps/b04d31b4c01c99)
 
-## Licence
+## ライセンス
 
 All code, unless specified otherwise, is licensed under
 the [MIT](https://opensource.org/license/MIT) license.
