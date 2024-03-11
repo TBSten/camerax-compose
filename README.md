@@ -75,6 +75,12 @@ dependencies {
 }
 ```
 
+Replace `<current-version>` with an appropriate value referring to the following.
+
+| camerax-compose                                                 | jetpack compose                                                                                  | camerax                                                                       |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| [v0.1.0](https://github.com/TBSten/camerax-compose/tree/v0.1.0) | [1.5.0 (compose-bom: 2023.08.00)](https://developer.android.com/jetpack/compose/bom/bom-mapping) | [1.3.1](https://developer.android.com/jetpack/androidx/releases/camera#1.3.1) |
+
 ## Quick Start
 
 After installation is complete, paste the following source code into your Composable.
