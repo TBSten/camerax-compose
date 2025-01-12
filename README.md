@@ -1,5 +1,12 @@
 # CameraX-Compose
 
+> [!CAUTION]
+> With the advent of the official camerax artifact for compose, this library is no longer available.
+> 
+> See:
+> - https://developer.android.com/jetpack/androidx/releases/camera?hl=ja
+> - https://medium.com/androiddevelopers/getting-started-with-camerax-in-jetpack-compose-781c722ca0c4
+
 [![Release](https://jitpack.io/v/tbsten/camerax-compose.svg)](https://jitpack.io/#tbsten/camerax-compose)
 
 `CameraX-Compose` is a library for simple and easy use of CameraX with Compose.
